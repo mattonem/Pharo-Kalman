@@ -36,18 +36,17 @@ Class {
 { #category : #initialization }
 LinearKalman >> initialize [ 	
 	super initialize.
-	r := 1000. 
+	r := 40. 
 	h := 1.
 	q := 10.
 	p := 0.
-	u_hat := 0.
 	k := 0.
 
 ]
 
 { #category : #'instance creation' }
 LinearKalman >> newEstimate: u [
-
+	u_hat ifNil: [ u_hat := u ].
 	k := p * h / (h * p * h + r).
 	u_hat := u_hat + (k * (u - (h * u_hat))).
 	p := (1 - (k * h) * p) + q.
